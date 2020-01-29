@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,800,900&display=swap');
+
+@import './app.css';
+
+:root {
+	--theme-primary: #4868f8;
+	--white: #fafafa;
+	--accent: #062e64;
+	--alert-success: #438875;
+	--alert-danger: #da3451;
+	--sidebar-width: 260px;
+	--gray: #8f9bb3;
+	--font-primary: 'Poppins';
+	--font-secondary: 'Arail';
+}
+::selection {
+	background: var(--theme-primary);
+	color: var(--white);
+	/* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+	background: var(--theme-primary);
+	color: var(--white);
+	/* Gecko Browsers */
+}
+
+::-webkit-input-placeholder {
+	color: var(--gray);
+	opacity: 1;
+}
+
+:-moz-placeholder {
+	color: var(--gray);
+	opacity: 1;
+}
+
+::-moz-placeholder {
+	color: var(--gray);
+	opacity: 1;
+}
+
+:-ms-input-placeholder {
+	color: var(--gray);
+	opacity: 1;
+}
+
+body {
+	font-family: var(--font-primary), -apple-system, BlinkMacSystemFont,
+		'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+	font-weight: 400;
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+html {
+	font-display: fallback;
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+	image-rendering: crisp-edges;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
