@@ -7,16 +7,23 @@ import { googleSignInStart, emailSignInStart } from '../../redux/user/actions';
 import Button from '../../components/button';
 
 const Login = ({ googleSignInStart, emailSignInStart }) => {
-	const [users, setUser] = useState({ email: '', password: '' });
+	const [users, setUser] = useState({
+		email: '',
+		password: '',
+		loading: false,
+	});
 	const handleChange = (e) => {
 		const { value, name } = e.target;
 
-		setUser({ [name]: value });
+		setUser({ ...users, [name]: value });
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const { email, password } = users;
-		emailSignInStart(email, password);
+		setUser({ ...users, loading: true });
+		emailSignInStart(email, password).then((res) => {
+			setUser({ ...users, loading: false });
+		});
 	};
 	return (
 		<Wrapper className="container d-block d-md-flex">
@@ -46,7 +53,12 @@ const Login = ({ googleSignInStart, emailSignInStart }) => {
 										required
 									/>
 									<div className="buttons d-block mt-4 d-md-flex">
-										<Button className="btn-primary" type="submit">
+										<Button
+											className="btn-primary"
+											isLoading={users.loading}
+											disabled={users.loading}
+											type="submit"
+										>
 											Sign In
 										</Button>
 										<Button

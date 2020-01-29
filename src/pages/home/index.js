@@ -4,31 +4,44 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import animationData from '../../assets/vectors/banner.json';
 import sectionAnimationData from '../../assets/vectors/section.json';
+import secondSectionAnimationData from '../../assets/vectors/section-2.json';
 
 const Home = () => {
 	const animBox = useRef();
 	const sectionAnimBox = useRef();
+	// eslint-disable-next-line camelcase
+	const sectionAnimBox_second = useRef();
 	const bannerAnimation = () => {
 		lottie.loadAnimation({
-			container: animBox.current, // the dom element that will contain the animation
+			container: animBox.current,
 			renderer: 'svg',
 			loop: true,
 			autoplay: true,
-			animationData, // the path to the animation json
+			animationData,
 		});
 	};
 	const sectionAnimation = () => {
 		lottie.loadAnimation({
-			container: sectionAnimBox.current, // the dom element that will contain the animation
+			container: sectionAnimBox.current,
 			renderer: 'svg',
 			loop: true,
 			autoplay: true,
-			animationData: sectionAnimationData, // the path to the animation json
+			animationData: sectionAnimationData,
+		});
+	};
+	const secondSectionAnimation = () => {
+		lottie.loadAnimation({
+			container: sectionAnimBox_second.current,
+			renderer: 'svg',
+			loop: true,
+			autoplay: true,
+			animationData: secondSectionAnimationData,
 		});
 	};
 	useEffect(() => {
 		bannerAnimation();
 		sectionAnimation();
+		secondSectionAnimation();
 	}, []);
 	return (
 		<Wrapper>
@@ -68,12 +81,36 @@ const Home = () => {
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
 								suscipit amet.
 							</p>
-							<Link to="/" className="btn btn-primary">
+							<Link to="/register" className="btn btn-primary">
 								Get Started
 							</Link>
 						</div>
 						<div className="col-md-7">
 							<div className="svg" ref={sectionAnimBox} />
+						</div>
+					</div>
+				</div>
+			</Section>
+			<Section>
+				<div className="container">
+					<div className="row">
+						<div className="col-md-6">
+							<div className="svg" ref={sectionAnimBox_second} />
+						</div>
+						<div className="col-md-6">
+							<h3>Endless Teamwork</h3>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
+								suscipit amet labore, laboriosam veniam voluptatum. Praesentium
+								ullam nesciunt nobis accusamus.
+							</p>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
+								suscipit amet.
+							</p>
+							<Link to="/register" className="btn btn-primary">
+								Get Started
+							</Link>
 						</div>
 					</div>
 				</div>
@@ -123,7 +160,7 @@ const HeroSection = styled.div`
 `;
 
 const Section = styled.div`
-	margin-top: 4rem;
+	margin-top: 6rem;
 	h2 {
 		font-size: 36px;
 		font-weight: 600;

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { ReactComponent as Male } from '../../assets/vectors/male.svg';
+import { signOutStart } from '../../redux/user/actions';
 
 const Nav = styled.nav`
 	padding: 16px 46px;
@@ -8,9 +11,12 @@ const Nav = styled.nav`
 	.nav-link {
 		color: rgba(0, 0, 0, 0.5);
 		padding: 15px 1rem;
+		@media screen (max-width: 786px) {
+			padding: 15px !important;
+		}
 	}
 `;
-const Navbar = () => {
+const Navbar = ({ user, signOut }) => {
 	return (
 		<Nav className="navbar navbar-expand-md bg-light navbar-light">
 			<Link className="navbar-brand" to="/">
@@ -31,25 +37,42 @@ const Navbar = () => {
 
 			<div className="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul className="navbar-nav ml-auto">
-					<li className="nav-item">
-						<Link className="nav-link" to="/">
-							Login
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link className="nav-link" to="/">
-							Signup
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link className="nav-link" to="/">
-							Profile
-						</Link>
-					</li>
+					{user === null && (
+						<>
+							<li className="nav-item">
+								<Link className="nav-link" to="/login">
+									Login
+								</Link>
+							</li>
+							<li className="nav-item">
+								<Link className="nav-link" to="/register">
+									Signup
+								</Link>
+							</li>
+						</>
+					)}
+					{user && (
+						<>
+							<li className="nav-item">
+								<Link className="nav-link" to="/profile">
+									<Male style={{ width: '20px', marginTop: '-6px' }} />{' '}
+									{user && user.displayName.split(' ')[0]}
+								</Link>
+							</li>
+							<li className="nav-item">
+								<Link className="nav-link" to="/" onClick={signOut}>
+									Logout
+								</Link>
+							</li>
+						</>
+					)}
 				</ul>
 			</div>
 		</Nav>
 	);
 };
 
-export default Navbar;
+const mapDispatchToProps = (dispatch) => ({
+	signOut: () => dispatch(signOutStart()),
+});
+export default connect(null, mapDispatchToProps)(Navbar);

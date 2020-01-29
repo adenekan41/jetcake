@@ -17,6 +17,7 @@ import {
 	createUserProfileDocument,
 	getCurrentUser,
 } from '../../firebase';
+import history from '../../utils/history';
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 	try {
@@ -45,6 +46,9 @@ export function* signInWithEmail({ payload: { email, password } }) {
 	try {
 		const { user } = yield auth.signInWithEmailAndPassword(email, password);
 		yield getSnapshotFromUserAuth(user);
+		yield history.push('/');
+		yield alert('Signin Successfully');
+		yield history.go();
 	} catch (error) {
 		yield put(signInFaliure(error));
 	}
@@ -64,15 +68,23 @@ export function* signOut() {
 	try {
 		yield auth.signOut();
 		yield put(signOutSuccess());
+		yield history.push('/');
+		yield history.go();
 	} catch (error) {
 		yield put(signOutFailure(error));
 	}
 }
 
-export function* signUp({ payload: { email, password, displayName } }) {
+export function* signUp({
+	payload: { email, password, displayName, dob, address },
+}) {
 	try {
 		const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-		yield put(signUpSuccess({ user, additionalData: { displayName } }));
+		yield put(
+			signUpSuccess({ user, additionalData: { displayName, dob, address } })
+		);
+		yield alert('Created New Account Successfully');
+		history.push('/');
 	} catch (error) {
 		yield put(signUpFailure(error));
 	}

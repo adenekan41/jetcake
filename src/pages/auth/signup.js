@@ -1,39 +1,49 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import FormInput from '../../components/input';
 import { signUpStart } from '../../redux/user/actions';
 import Button from '../../components/button';
-import { Link } from 'react-router-dom';
 
 const Register = ({ onsignupStart }) => {
 	const [users, setUser] = useState({
 		displayName: '',
 		email: '',
+		dob: '',
+		address: '',
 		password: '',
 		confirmPassword: '',
 	});
 	const handleOnChange = (e) => {
 		const { value, name } = e.target;
-
-		setUser({ [name]: value });
+		setUser({...users, [name]: value });
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const { displayName, email, password, confirmPassword } = users;
+		const {
+			displayName,
+			email,
+			password,
+			confirmPassword,
+			dob,
+			address,
+		} = users;
 
 		if (password !== confirmPassword) {
 			alert('passwords don"t match');
 			return;
 		}
 		try {
-			onsignupStart(displayName, email, password);
-			setUser({
-				displayName: '',
-				email: '',
-				password: '',
-				confirmPassword: '',
-			});
+			onsignupStart(displayName, email, password, dob, address);
+			// setUser({
+			// 	displayName: '',
+			// 	email: '',
+			// 	password: '',
+			// 	dob: '',
+			// 	address: '',
+			// 	confirmPassword: '',
+			// });
 		} catch (err) {
 			console.error(err);
 		}
@@ -57,7 +67,7 @@ const Register = ({ onsignupStart }) => {
 										name="displayName"
 										value={users.displayName}
 										onChange={(e) => handleOnChange(e)}
-										label="Dispaly Name"
+										label="Full Name"
 										required
 									/>
 									<FormInput
@@ -66,6 +76,22 @@ const Register = ({ onsignupStart }) => {
 										value={users.email}
 										onChange={(e) => handleOnChange(e)}
 										label="Email"
+										required
+									/>
+									<FormInput
+										type="date"
+										name="dob"
+										value={users.dob}
+										onChange={(e) => handleOnChange(e)}
+										label="Date of birth"
+										required
+									/>
+									<FormInput
+										type="text"
+										name="address"
+										value={users.address}
+										onChange={(e) => handleOnChange(e)}
+										label="Address"
 										required
 									/>
 									<FormInput
@@ -98,8 +124,8 @@ const Register = ({ onsignupStart }) => {
 	);
 };
 const mapDispatchToProps = (dispatch) => ({
-	onsignupStart: (displayName, email, password) =>
-		dispatch(signUpStart({ displayName, email, password })),
+	onsignupStart: (displayName, email, password,dob,address) =>
+		dispatch(signUpStart({ displayName, email, password, dob, address })),
 });
 
 const Wrapper = styled.div`
