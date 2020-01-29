@@ -2,11 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import lottie from 'lottie-web';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import animationData from '../../assets/vectors/violin.json';
+import animationData from '../../assets/vectors/banner.json';
+import sectionAnimationData from '../../assets/vectors/section.json';
 
 const Home = () => {
 	const animBox = useRef();
-	useEffect(() => {
+	const sectionAnimBox = useRef();
+	const bannerAnimation = () => {
 		lottie.loadAnimation({
 			container: animBox.current, // the dom element that will contain the animation
 			renderer: 'svg',
@@ -14,6 +16,19 @@ const Home = () => {
 			autoplay: true,
 			animationData, // the path to the animation json
 		});
+	};
+	const sectionAnimation = () => {
+		lottie.loadAnimation({
+			container: sectionAnimBox.current, // the dom element that will contain the animation
+			renderer: 'svg',
+			loop: true,
+			autoplay: true,
+			animationData: sectionAnimationData, // the path to the animation json
+		});
+	};
+	useEffect(() => {
+		bannerAnimation();
+		sectionAnimation();
 	}, []);
 	return (
 		<Wrapper>
@@ -38,6 +53,31 @@ const Home = () => {
 					</header>
 				</span>
 			</HeroSection>
+			<Section>
+				<div className="container">
+					<h2 className="text-center">What Do We Offer</h2>
+					<div className="row">
+						<div className="col-md-5">
+							<h3>Effective Collaboration</h3>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
+								suscipit amet labore, laboriosam veniam voluptatum. Praesentium
+								ullam nesciunt nobis accusamus.
+							</p>
+							<p>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
+								suscipit amet.
+							</p>
+							<Link to="/" className="btn btn-primary">
+								Get Started
+							</Link>
+						</div>
+						<div className="col-md-7">
+							<div className="svg" ref={sectionAnimBox} />
+						</div>
+					</div>
+				</div>
+			</Section>
 		</Wrapper>
 	);
 };
@@ -77,11 +117,36 @@ const HeroSection = styled.div`
 	justify-content: center;
 	.svg {
 		width: 100%;
-		opacity: 0.6;
+		opacity: 0.58;
 		margin: -4rem auto;
-		&:hover {
-			opacity: 1;
-		}
+	}
+`;
+
+const Section = styled.div`
+	margin-top: 4rem;
+	h2 {
+		font-size: 36px;
+		font-weight: 600;
+		color: #424242;
+		margin-bottom: 3rem;
+	}
+	h3 {
+		font-size: 26px;
+		font-weight: 500;
+		margin-top: 3rem;
+		color: #424242;
+	}
+	.btn {
+		padding: 9px 40px;
+		border-radius: 50px;
+		background: #1e88e5;
+		font-weight: 500;
+		border: none;
+		/* color: #000; */
+	}
+	p {
+		margin: 1.5rem 0;
+		font-size: 15px;
 	}
 `;
 export default Home;
