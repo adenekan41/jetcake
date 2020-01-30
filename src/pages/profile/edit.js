@@ -12,6 +12,9 @@ const EditProfile = ({ oneditStart, user, closeModal }) => {
 		dob: user.dob || '',
 		address: user.address || '',
 		photo: user.photo || '',
+		security1: user.security1 || '',
+		security2: user.security2 || '',
+		security3: user.security3 || '',
 	});
 	const handleOnChange = (e) => {
 		const { value, name } = e.target;
@@ -19,9 +22,28 @@ const EditProfile = ({ oneditStart, user, closeModal }) => {
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const { displayName, email, photo, dob, address } = users;
+		const {
+			displayName,
+			email,
+			photo,
+			dob,
+			address,
+			security1,
+			security2,
+			security3,
+		} = users;
 		try {
-			oneditStart(user.id, displayName, email, photo, dob, address);
+			oneditStart(
+				user.id,
+				displayName,
+				email,
+				photo,
+				dob,
+				address,
+				security1,
+				security2,
+				security3
+			);
 			closeModal();
 		} catch (err) {
 			console.error(err);
@@ -81,6 +103,31 @@ const EditProfile = ({ oneditStart, user, closeModal }) => {
 										label="Image Url"
 										required
 									/>
+									<p>Security Questions</p>
+									<FormInput
+										type="text"
+										name="security1"
+										value={users.security1}
+										onChange={(e) => handleOnChange(e)}
+										label="What is your pet name?"
+										required
+									/>
+									<FormInput
+										type="text"
+										name="security2"
+										value={users.security2}
+										onChange={(e) => handleOnChange(e)}
+										label="What is your nick name?"
+										required
+									/>
+									<FormInput
+										type="text"
+										name="security3"
+										value={users.security3}
+										onChange={(e) => handleOnChange(e)}
+										label="What is your best book ?"
+										required
+									/>
 									<Button type="submit">Edit Profile</Button>
 								</form>
 							</div>
@@ -92,8 +139,30 @@ const EditProfile = ({ oneditStart, user, closeModal }) => {
 	);
 };
 const mapDispatchToProps = (dispatch) => ({
-	oneditStart: (id, displayName, email, photo, dob, address) =>
-		dispatch(editStart({ id, displayName, email, photo, dob, address })),
+	oneditStart: (
+		id,
+		displayName,
+		email,
+		photo,
+		dob,
+		address,
+		security1,
+		security2,
+		security3
+	) =>
+		dispatch(
+			editStart({
+				id,
+				displayName,
+				email,
+				photo,
+				dob,
+				address,
+				security1,
+				security2,
+				security3,
+			})
+		),
 });
 
 const Wrapper = styled.div`
@@ -140,7 +209,8 @@ const Wrapper = styled.div`
 		width: 100%;
 		height: 100%;
 		top: 0;
-		padding: 12rem 0;
+        padding: 12rem 0;
+        overflow: auto;
 		@media (max-width: 786px) {
 			padding: 4rem 0 !important;
 		}

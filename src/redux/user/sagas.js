@@ -94,11 +94,30 @@ export function* signUp({
 	}
 }
 export function* editProfile({
-	payload: { id, email, photo, displayName, dob, address },
+	payload: {
+		id,
+		email,
+		photo,
+		displayName,
+		dob,
+		address,
+		security1,
+		security2,
+		security3,
+	},
 }) {
 	try {
-		debugger;
-		const additionalData = { id, email, photo, displayName, dob, address };
+		const additionalData = {
+			id,
+			email,
+			photo,
+			displayName,
+			dob,
+			address,
+			security1,
+			security2,
+			security3,
+		};
 		const userRef = yield call(updateUserProfileDocument, additionalData);
 		yield userRef.get();
 		yield isUserAuthenticated();
