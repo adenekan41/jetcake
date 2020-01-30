@@ -37,7 +37,9 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 export function* signInWithGoogle() {
 	try {
 		const { user } = yield auth.signInWithPopup(googleProvider);
+
 		yield getSnapshotFromUserAuth(user);
+		yield history.push('/profile');
 	} catch (error) {
 		yield put(signInFaliure(error));
 	}
@@ -47,7 +49,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
 	try {
 		const { user } = yield auth.signInWithEmailAndPassword(email, password);
 		yield getSnapshotFromUserAuth(user);
-		yield history.push('/');
+		yield history.push('/profile');
 		yield alert('Signin Successfully');
 		yield history.go();
 	} catch (error) {
@@ -88,7 +90,7 @@ export function* signUp({
 			})
 		);
 		yield alert('Created New Account Successfully');
-		history.push('/');
+		history.push('/profile');
 	} catch (error) {
 		yield put(signUpFailure(error));
 	}
