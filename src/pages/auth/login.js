@@ -54,7 +54,7 @@ const Login = ({ googleSignInStart, emailSignInStart }) => {
 									/>
 									<div className="buttons d-block mt-4 d-md-flex">
 										<Button
-											className="btn-primary mb-4"
+											className="btn-primary"
 											isLoading={users.loading}
 											disabled={users.loading}
 											type="submit"
@@ -104,7 +104,8 @@ const Wrapper = styled.div`
 	button {
 		padding: 14px 39px;
 		border: none;
-		border-radius: 50px;
+        border-radius: 50px;
+        margin-top: 1rem;
 		background: #1f88e5;
 		margin-right: 19px;
 	}
