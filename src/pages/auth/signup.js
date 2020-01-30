@@ -12,12 +12,14 @@ const Register = ({ onsignupStart }) => {
 		email: '',
 		dob: '',
 		address: '',
+		photo:
+			'https://f0.pngfuel.com/png/980/886/male-portrait-avatar-png-clip-art.png',
 		password: '',
 		confirmPassword: '',
 	});
 	const handleOnChange = (e) => {
 		const { value, name } = e.target;
-		setUser({...users, [name]: value });
+		setUser({ ...users, [name]: value });
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -28,6 +30,7 @@ const Register = ({ onsignupStart }) => {
 			confirmPassword,
 			dob,
 			address,
+			photo,
 		} = users;
 
 		if (password !== confirmPassword) {
@@ -35,7 +38,7 @@ const Register = ({ onsignupStart }) => {
 			return;
 		}
 		try {
-			onsignupStart(displayName, email, password, dob, address);
+			onsignupStart(displayName, email, password, dob, address, photo);
 			// setUser({
 			// 	displayName: '',
 			// 	email: '',
@@ -124,8 +127,10 @@ const Register = ({ onsignupStart }) => {
 	);
 };
 const mapDispatchToProps = (dispatch) => ({
-	onsignupStart: (displayName, email, password,dob,address) =>
-		dispatch(signUpStart({ displayName, email, password, dob, address })),
+	onsignupStart: (displayName, email, password, dob, address, photo) =>
+		dispatch(
+			signUpStart({ displayName, email, password, dob, address, photo })
+		),
 });
 
 const Wrapper = styled.div`

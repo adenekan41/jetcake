@@ -21,9 +21,9 @@ const Login = ({ googleSignInStart, emailSignInStart }) => {
 		e.preventDefault();
 		const { email, password } = users;
 		setUser({ ...users, loading: true });
-		emailSignInStart(email, password).then((res) => {
-			setUser({ ...users, loading: false });
-		});
+		await emailSignInStart(email, password)
+		setUser({ ...users, loading: false });
+
 	};
 	return (
 		<Wrapper className="container d-block d-md-flex">

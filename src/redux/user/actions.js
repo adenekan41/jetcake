@@ -42,6 +42,10 @@ export const signUpStart = (userData) => ({
 	type: UserActionTypes.SIGN_UP_START,
 	payload: userData,
 });
+export const editStart = (userData) => ({
+	type: UserActionTypes.EDIT_START,
+	payload: userData,
+});
 export const signUpSuccess = (userData) => ({
 	type: UserActionTypes.SIGN_UP_SUCCESS,
 	payload: userData,

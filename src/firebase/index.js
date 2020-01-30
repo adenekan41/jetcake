@@ -38,6 +38,34 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	}
 	return userRef;
 };
+export const updateUserProfileDocument = async (additionalData) => {
+	if (!additionalData) return;
+
+    const userRef = firestore.collection('users').doc(`${additionalData.id}`);
+    debugger
+    // const snapShot = await userRef();
+    debugger
+	// const collectionRef = firestore.collection('users')
+	// const collectionSnapShot = await collectionRef.get()
+
+	// console.log(collectionSnapShot)
+
+		const { displayName, email } = additionalData;
+		const createdAt = new Date();
+
+		try {
+			await userRef.set({
+				displayName,
+				email,
+				createdAt,
+				...additionalData,
+			});
+		} catch (err) {
+			console.log('error updating user');
+		}
+	
+	return userRef;
+};
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import FormInput from '../../components/input';
-import { signUpStart } from '../../redux/user/actions';
+import { editStart } from '../../redux/user/actions';
 import Button from '../../components/button';
 
-const EditProfile = ({ onsignupStart, user, closeModal }) => {
+const EditProfile = ({ oneditStart, user, closeModal }) => {
 	const [users, setUser] = useState({
 		displayName: user.displayName || '',
 		email: user.email || '',
 		dob: user.dob || '',
 		address: user.address || '',
+		photo: user.photo || '',
 	});
 	const handleOnChange = (e) => {
 		const { value, name } = e.target;
@@ -19,17 +19,10 @@ const EditProfile = ({ onsignupStart, user, closeModal }) => {
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const { displayName, email, dob, address } = users;
+		const { displayName, email, photo, dob, address } = users;
 		try {
-			onsignupStart(displayName, email, dob, address);
-			// setUser({
-			// 	displayName: '',
-			// 	email: '',
-			// 	password: '',
-			// 	dob: '',
-			// 	address: '',
-			// 	confirmPassword: '',
-			// });
+            oneditStart(user.id, displayName, email, photo, dob, address);
+            closeModal()
 		} catch (err) {
 			console.error(err);
 		}
@@ -80,6 +73,14 @@ const EditProfile = ({ onsignupStart, user, closeModal }) => {
 										label="Address"
 										required
 									/>
+									<FormInput
+										type="text"
+										name="photo"
+										value={users.photo}
+										onChange={(e) => handleOnChange(e)}
+										label="Image Url"
+										required
+									/>
 									<Button type="submit">Edit Profile</Button>
 								</form>
 							</div>
@@ -91,8 +92,8 @@ const EditProfile = ({ onsignupStart, user, closeModal }) => {
 	);
 };
 const mapDispatchToProps = (dispatch) => ({
-	onsignupStart: (displayName, email, dob, address) =>
-		dispatch(signUpStart({ displayName, email, dob, address })),
+	oneditStart: (id, displayName, email,  photo, dob, address) =>
+		dispatch(editStart({ id, displayName, email, photo, dob, address })),
 });
 
 const Wrapper = styled.div`

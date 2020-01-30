@@ -16,6 +16,7 @@ import {
 	googleProvider,
 	createUserProfileDocument,
 	getCurrentUser,
+	updateUserProfileDocument,
 } from '../../firebase';
 import history from '../../utils/history';
 
@@ -76,15 +77,32 @@ export function* signOut() {
 }
 
 export function* signUp({
-	payload: { email, password, displayName, dob, address },
+	payload: { email, password, displayName, dob, address, photo },
 }) {
 	try {
 		const { user } = yield auth.createUserWithEmailAndPassword(email, password);
 		yield put(
-			signUpSuccess({ user, additionalData: { displayName, dob, address } })
+			signUpSuccess({
+				user,
+				additionalData: { displayName, dob, address, photo },
+			})
 		);
 		yield alert('Created New Account Successfully');
 		history.push('/');
+	} catch (error) {
+		yield put(signUpFailure(error));
+	}
+}
+export function* editProfile({
+	payload: { id, email, photo, displayName, dob, address },
+}) {
+	try {
+		debugger;
+		const additionalData = { id, email, photo, displayName, dob, address };
+		const userRef = yield call(updateUserProfileDocument, additionalData);
+		yield userRef.get();
+		yield isUserAuthenticated();
+		yield alert('Edited Account Successfully');
 	} catch (error) {
 		yield put(signUpFailure(error));
 	}
@@ -114,6 +132,10 @@ export function* onSignUpStart() {
 	yield takeLatest(UserActionTypes.SIGN_UP_START, signUp);
 }
 
+export function* onEditStart() {
+	yield takeLatest(UserActionTypes.EDIT_START, editProfile);
+}
+
 export function* onSignUpSuccess() {
 	yield takeLatest(UserActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
@@ -125,6 +147,7 @@ export function* userSagas() {
 		call(onCheckUserSession),
 		call(onSignOutStart),
 		call(onSignUpStart),
+		call(onEditStart),
 		call(onSignUpSuccess),
 	]);
 }
