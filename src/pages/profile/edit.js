@@ -209,8 +209,8 @@ const Wrapper = styled.div`
 		width: 100%;
 		height: 100%;
 		top: 0;
-        padding: 12rem 0;
-        overflow: auto;
+		padding: 12rem 0;
+		overflow: auto;
 		@media (max-width: 786px) {
 			padding: 4rem 0 !important;
 		}

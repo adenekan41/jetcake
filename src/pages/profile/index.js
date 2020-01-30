@@ -48,8 +48,8 @@ const Profile = ({ user }) => {
 						</div>
 					</div>
 					{edit && (
-                        <EditProfile user={user} closeModal={() => setEdit(!edit)}/>
-                    )}
+						<EditProfile user={user} closeModal={() => setEdit(!edit)} />
+					)}
 				</>
 			) : (
 				<h3 className="text-center mt-5">Loading ...</h3>
@@ -68,8 +68,8 @@ const Wrapper = styled.div`
 		border-radius: 50%;
 		object-fit: cover;
 		margin: 1.5rem 0;
-    }
-    button {
+	}
+	button {
 		padding: 14px 39px;
 		border: none;
 		border-radius: 50px;

@@ -130,10 +130,10 @@ const Wrapper = styled.section`
 			font-weight: 900;
 			line-height: 1.1;
 			letter-spacing: -1.1px;
-			font-size: 60px;
+			font-size: 52px;
 		}
 		p {
-			font-size: 18px;
+			font-size: 16px;
 			font-weight: 400;
 			color: #4d4d4d;
 			margin: 1rem 0;
@@ -152,10 +152,10 @@ const Wrapper = styled.section`
 	}
 `;
 const HeroSection = styled.div`
-    min-height: 100vh;
-    @media (max-width: 786px) {
-        min-height: 80vh;
-    }
+	min-height: 100vh;
+	@media (max-width: 786px) {
+		min-height: 80vh;
+	}
 	align-items: center;
 	justify-content: center;
 	.svg {

@@ -21,9 +21,8 @@ const Login = ({ googleSignInStart, emailSignInStart }) => {
 		e.preventDefault();
 		const { email, password } = users;
 		setUser({ ...users, loading: true });
-		await emailSignInStart(email, password)
+		await emailSignInStart(email, password);
 		setUser({ ...users, loading: false });
-
 	};
 	return (
 		<Wrapper className="container d-block d-md-flex">
@@ -104,8 +103,8 @@ const Wrapper = styled.div`
 	button {
 		padding: 14px 39px;
 		border: none;
-        border-radius: 50px;
-        margin-top: 1rem;
+		border-radius: 50px;
+		margin-top: 1rem;
 		background: #1f88e5;
 		margin-right: 19px;
 	}
