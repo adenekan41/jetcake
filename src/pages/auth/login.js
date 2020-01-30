@@ -28,7 +28,7 @@ const Login = ({ googleSignInStart, emailSignInStart }) => {
 	return (
 		<Wrapper className="container d-block d-md-flex">
 			<span>
-				<h3 className="text-left mt-4 mt-md-0 mb-4">
+				<h3 className="text-left mt-5 mt-md-0 mb-4">
 					Welcome Back To Your Account
 				</h3>
 				<div className="row justify-content-center">
@@ -54,7 +54,7 @@ const Login = ({ googleSignInStart, emailSignInStart }) => {
 									/>
 									<div className="buttons d-block mt-4 d-md-flex">
 										<Button
-											className="btn-primary"
+											className="btn-primary mb-4"
 											isLoading={users.loading}
 											disabled={users.loading}
 											type="submit"

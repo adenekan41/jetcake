@@ -45,7 +45,7 @@ const Home = () => {
 	}, []);
 	return (
 		<Wrapper>
-			<HeroSection className="d-md-flex d-block">
+			<HeroSection className="d-md-flex d-flex">
 				<span>
 					<header className="container">
 						<div className="row">
@@ -60,7 +60,7 @@ const Home = () => {
 								</Link>
 							</div>
 							<div className="col-md-12">
-								<div className="svg" ref={animBox} />
+								<div className="svg d-none d-md-block" ref={animBox} />
 							</div>
 						</div>
 					</header>
@@ -70,7 +70,7 @@ const Home = () => {
 				<div className="container">
 					<h2 className="text-center">What Do We Offer</h2>
 					<div className="row">
-						<div className="col-md-5">
+						<div className="col-md-5 order-2 order-md-1">
 							<h3>Effective Collaboration</h3>
 							<p>
 								Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
@@ -85,7 +85,7 @@ const Home = () => {
 								Get Started
 							</Link>
 						</div>
-						<div className="col-md-7">
+						<div className="col-md-7 order-1 order-md-2">
 							<div className="svg" ref={sectionAnimBox} />
 						</div>
 					</div>
@@ -115,6 +115,9 @@ const Home = () => {
 					</div>
 				</div>
 			</Section>
+			<Footer>
+				<p>Copyright 2020 © AirTeams</p>
+			</Footer>
 		</Wrapper>
 	);
 };
@@ -149,7 +152,10 @@ const Wrapper = styled.section`
 	}
 `;
 const HeroSection = styled.div`
-	min-height: 100vh;
+    min-height: 100vh;
+    @media (max-width: 786px) {
+        min-height: 80vh;
+    }
 	align-items: center;
 	justify-content: center;
 	.svg {
@@ -183,6 +189,16 @@ const Section = styled.div`
 	}
 	p {
 		margin: 1.5rem 0;
+		font-size: 15px;
+	}
+`;
+const Footer = styled.footer`
+	margin-top: 6rem;
+	padding: 30px;
+	background: #1f88e521;
+	text-align: center;
+	p {
+		margin: 0;
 		font-size: 15px;
 	}
 `;

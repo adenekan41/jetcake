@@ -17,10 +17,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 	const userRef = firestore.doc(`users/${userAuth.uid}`);
 	const snapShot = await userRef.get();
-	// const collectionRef = firestore.collection('users')
-	// const collectionSnapShot = await collectionRef.get()
-
-	// console.log(collectionSnapShot)
 	if (!snapShot.exists) {
 		const { displayName, email } = userAuth;
 		const createdAt = new Date();
@@ -41,29 +37,22 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 export const updateUserProfileDocument = async (additionalData) => {
 	if (!additionalData) return;
 
-    const userRef = firestore.collection('users').doc(`${additionalData.id}`);
-    debugger
-    // const snapShot = await userRef();
-    debugger
-	// const collectionRef = firestore.collection('users')
-	// const collectionSnapShot = await collectionRef.get()
+	const userRef = firestore.collection('users').doc(`${additionalData.id}`);
 
-	// console.log(collectionSnapShot)
+	const { displayName, email } = additionalData;
+	const createdAt = new Date();
 
-		const { displayName, email } = additionalData;
-		const createdAt = new Date();
+	try {
+		await userRef.set({
+			displayName,
+			email,
+			createdAt,
+			...additionalData,
+		});
+	} catch (err) {
+		console.log('error updating user');
+	}
 
-		try {
-			await userRef.set({
-				displayName,
-				email,
-				createdAt,
-				...additionalData,
-			});
-		} catch (err) {
-			console.log('error updating user');
-		}
-	
 	return userRef;
 };
 firebase.initializeApp(firebaseConfig);

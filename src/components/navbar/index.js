@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -8,15 +8,20 @@ import { signOutStart } from '../../redux/user/actions';
 const Nav = styled.nav`
 	padding: 16px 46px;
 	background: white !important;
+	@media (max-width: 786px) {
+		padding: 15px !important;
+	}
 	.nav-link {
 		color: rgba(0, 0, 0, 0.5);
 		padding: 15px 1rem;
-		@media screen (max-width: 786px) {
-			padding: 15px !important;
-		}
+	}
+	.navbar-toggler {
+		color: rgba(0, 0, 0, 0.5);
+		border: none;
 	}
 `;
 const Navbar = ({ user, signOut }) => {
+	const [show, setShow] = useState(false);
 	return (
 		<Nav className="navbar navbar-expand-md bg-light navbar-light">
 			<Link className="navbar-brand" to="/">
@@ -32,10 +37,13 @@ const Navbar = ({ user, signOut }) => {
 			</Link>
 
 			<button className="navbar-toggler" type="button">
-				<span className="navbar-toggler-icon" />
+				<span className="navbar-toggler-icon" onClick={() => setShow(!show)} />
 			</button>
 
-			<div className="collapse navbar-collapse" id="collapsibleNavbar">
+			<div
+				className={`collapse navbar-collapse ${show ? 'show' : ''}`}
+				id="collapsibleNavbar"
+			>
 				<ul className="navbar-nav ml-auto">
 					{user === null && (
 						<>

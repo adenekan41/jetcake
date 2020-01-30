@@ -21,8 +21,8 @@ const EditProfile = ({ oneditStart, user, closeModal }) => {
 		e.preventDefault();
 		const { displayName, email, photo, dob, address } = users;
 		try {
-            oneditStart(user.id, displayName, email, photo, dob, address);
-            closeModal()
+			oneditStart(user.id, displayName, email, photo, dob, address);
+			closeModal();
 		} catch (err) {
 			console.error(err);
 		}
@@ -92,7 +92,7 @@ const EditProfile = ({ oneditStart, user, closeModal }) => {
 	);
 };
 const mapDispatchToProps = (dispatch) => ({
-	oneditStart: (id, displayName, email,  photo, dob, address) =>
+	oneditStart: (id, displayName, email, photo, dob, address) =>
 		dispatch(editStart({ id, displayName, email, photo, dob, address })),
 });
 
@@ -120,6 +120,9 @@ const Wrapper = styled.div`
 		background: #ffffff;
 		padding: 0px 0px;
 		width: 32%;
+		@media (max-width: 786px) {
+			width: 94%;
+		}
 		padding: 2rem;
 		margin: auto;
 	}
@@ -138,6 +141,9 @@ const Wrapper = styled.div`
 		height: 100%;
 		top: 0;
 		padding: 12rem 0;
+		@media (max-width: 786px) {
+			padding: 4rem 0 !important;
+		}
 	}
 `;
 export default connect(null, mapDispatchToProps)(EditProfile);

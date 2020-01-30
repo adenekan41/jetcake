@@ -52,9 +52,9 @@ const Register = ({ onsignupStart }) => {
 		}
 	};
 	return (
-		<Wrapper className="d-block d-md-flex">
+		<Wrapper className="container d-block d-md-flex">
 			<span>
-				<h3 className="text-center mb-4">
+				<h3 className="text-left mt-5 mt-md-0 mb-4 ">
 					Sign up with your email and password
 				</h3>
 				<div className="row justify-content-center">
